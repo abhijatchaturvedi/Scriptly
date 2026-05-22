@@ -43,14 +43,73 @@ The extension prototype builds successfully and includes the completed product s
 
 See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for verification notes.
 
-## Quick Start
+## Install and Use
+
+### 1. Download the Project
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/Scriptly.git
+cd Scriptly
+```
+
+Or download it as a ZIP from GitHub:
+
+1. Click `Code`.
+2. Click `Download ZIP`.
+3. Extract the ZIP.
+4. Open the extracted `Scriptly` folder in a terminal.
+
+### 2. Install Dependencies
 
 ```bash
 npm --prefix extension install
+```
+
+### 3. Build the Extension
+
+```bash
 npm --prefix extension run build
 ```
 
-Then open Chrome or another Chromium browser and load the `extension` folder as an unpacked extension.
+### 4. Load as an Unpacked Extension
+
+1. Open Chrome, Edge, Brave, or another Chromium browser.
+2. Go to `chrome://extensions`.
+3. Turn on `Developer mode`.
+4. Click `Load unpacked`.
+5. Select the `Scriptly/extension` folder.
+6. Pin Scriptly from the browser extensions menu.
+
+### 5. Add Your AI Provider Key
+
+1. Click the Scriptly extension icon.
+2. Choose a provider such as OpenAI, Anthropic, Gemini, Groq, OpenRouter, DeepSeek, Together AI, Ollama-compatible, or a custom OpenAI-compatible endpoint.
+3. Paste your API key.
+4. Set the model name.
+5. Enable the provider.
+6. Click `Test` to verify the connection.
+
+Your API key is stored locally in the browser using encrypted extension storage.
+
+### 6. Use Scriptly
+
+- Open Gmail, LinkedIn, WhatsApp Web, Slack, Notion, Twitter/X, ChatGPT, or any page with an editable text field.
+- Click inside a text box.
+- Use the floating Scriptly toolbar for grammar correction, rewrite, Hinglish conversion, tone analysis, humanization, smart replies, and prompt enhancement.
+- Use `Ctrl+Shift+S` inside an editor to run a quick professional rewrite.
+- Open the side panel for longer text, resumes, LinkedIn content, prompt enhancement, and tone reports.
+
+### Optional Backend
+
+The extension works without the backend when you add provider keys in the extension. The backend is optional for proxying, team features, and future sync.
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
 
 ## Repository
 
