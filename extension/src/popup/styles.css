@@ -1,0 +1,91 @@
+.popup {
+  width: 380px;
+  max-height: 580px;
+  overflow: auto;
+  padding: 14px;
+  color: #111827;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+header,
+.provider > div,
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+header,
+.provider > div {
+  justify-content: space-between;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+h2 {
+  margin: 18px 0 8px;
+  font-size: 13px;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+
+select,
+input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  padding: 7px 8px;
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 7px;
+  padding: 7px 9px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+}
+
+.switch {
+  display: flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 6px;
+}
+
+.switch input {
+  width: auto;
+}
+
+.switch.small {
+  font-size: 11px;
+}
+
+.provider {
+  display: grid;
+  gap: 8px;
+  padding: 10px 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.row input {
+  flex: 1;
+}
+
+.status {
+  min-height: 18px;
+  color: #334155;
+  font-size: 12px;
+}

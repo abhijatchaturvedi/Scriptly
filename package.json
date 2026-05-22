@@ -1,0 +1,10 @@
+{
+  "name": "scriptly",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "extension:build": "npm --prefix extension run build",
+    "extension:check": "npm --prefix extension run check"
+  }
+}
