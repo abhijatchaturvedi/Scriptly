@@ -30,6 +30,20 @@ Scriptly helps Indian internet users write clearer, warmer, sharper, and more co
 - Improve resumes, LinkedIn sections, and AI prompts.
 - Route each feature to a different AI provider and model.
 
+## Screenshots
+
+### Provider Settings
+
+![Scriptly provider settings popup](docs/screenshots/popup.svg)
+
+### Side Panel Assistant
+
+![Scriptly side panel assistant](docs/screenshots/sidepanel.svg)
+
+### In-Page Writing Toolbar
+
+![Scriptly in-page writing toolbar](docs/screenshots/toolbar.svg)
+
 ## Project Status
 
 The extension prototype builds successfully and includes the completed product surface across all planned phases:

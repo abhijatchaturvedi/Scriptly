@@ -1,0 +1,42 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" fill="#f4f7fb"/>
+  <rect x="290" y="38" width="380" height="564" rx="18" fill="#ffffff" stroke="#cbd5e1"/>
+  <rect x="290" y="38" width="380" height="64" rx="18" fill="#111827"/>
+  <text x="318" y="78" font-family="Inter, Segoe UI, Arial" font-size="24" font-weight="700" fill="#ffffff">Scriptly</text>
+  <rect x="560" y="60" width="72" height="24" rx="12" fill="#14b8a6"/>
+  <circle cx="620" cy="72" r="10" fill="#ffffff"/>
+  <text x="318" y="137" font-family="Inter, Segoe UI, Arial" font-size="13" font-weight="700" fill="#475569">DEFAULTS</text>
+  <text x="318" y="164" font-family="Inter, Segoe UI, Arial" font-size="13" fill="#111827">Tone</text>
+  <rect x="318" y="174" width="312" height="40" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="334" y="199" font-family="Inter, Segoe UI, Arial" font-size="14" fill="#111827">Polite Indian corporate</text>
+  <text x="318" y="254" font-family="Inter, Segoe UI, Arial" font-size="13" font-weight="700" fill="#475569">PROVIDERS</text>
+  <g>
+    <rect x="318" y="274" width="312" height="88" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="334" y="302" font-family="Inter, Segoe UI, Arial" font-size="16" font-weight="700" fill="#111827">OpenAI</text>
+    <rect x="558" y="286" width="52" height="22" rx="11" fill="#14b8a6"/>
+    <circle cx="600" cy="297" r="8" fill="#ffffff"/>
+    <rect x="334" y="318" width="276" height="28" rx="7" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="344" y="337" font-family="Inter, Segoe UI, Arial" font-size="12" fill="#475569">gpt-4o</text>
+  </g>
+  <g>
+    <rect x="318" y="376" width="312" height="88" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="334" y="404" font-family="Inter, Segoe UI, Arial" font-size="16" font-weight="700" fill="#111827">Anthropic</text>
+    <rect x="558" y="388" width="52" height="22" rx="11" fill="#e2e8f0"/>
+    <circle cx="569" cy="399" r="8" fill="#ffffff"/>
+    <rect x="334" y="420" width="276" height="28" rx="7" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="344" y="439" font-family="Inter, Segoe UI, Arial" font-size="12" fill="#475569">claude-3-5-sonnet-latest</text>
+  </g>
+  <g>
+    <rect x="318" y="478" width="312" height="88" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="334" y="506" font-family="Inter, Segoe UI, Arial" font-size="16" font-weight="700" fill="#111827">Groq</text>
+    <rect x="558" y="490" width="52" height="22" rx="11" fill="#14b8a6"/>
+    <circle cx="600" cy="501" r="8" fill="#ffffff"/>
+    <rect x="334" y="522" width="166" height="28" rx="7" fill="#f8fafc" stroke="#cbd5e1"/>
+    <rect x="508" y="522" width="48" height="28" rx="7" fill="#111827"/>
+    <rect x="562" y="522" width="48" height="28" rx="7" fill="#111827"/>
+    <text x="344" y="541" font-family="Inter, Segoe UI, Arial" font-size="12" fill="#475569">llama-3.1-8b-instant</text>
+    <text x="520" y="540" font-family="Inter, Segoe UI, Arial" font-size="12" fill="#ffffff">Save</text>
+    <text x="575" y="540" font-family="Inter, Segoe UI, Arial" font-size="12" fill="#ffffff">Test</text>
+  </g>
+</svg>
+
