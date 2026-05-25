@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && node scripts/fix-extension-html.mjs",
     "check": "tsc --noEmit"
   },
   "dependencies": {
