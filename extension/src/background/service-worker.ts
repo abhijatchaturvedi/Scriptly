@@ -75,7 +75,10 @@ async function testConfiguredProvider(providerId: string) {
 }
 
 function localFallback(request: AiTaskRequest, errors: string[]): AiTaskResponse {
-  const replacement = heuristicRewrite(request.text, request.taskType);
+  const suggestions = buildLocalSuggestions(request.text, request.taskType);
+  const replacement = suggestions.length > 0
+    ? applyLocalSuggestions(request.text, suggestions)
+    : heuristicRewrite(request.text, request.taskType);
 
   return {
     id: request.id,
@@ -83,7 +86,7 @@ function localFallback(request: AiTaskRequest, errors: string[]): AiTaskResponse
     intent: request.taskType,
     output: replacement,
     explanation: `No enabled provider succeeded. ${errors.join("; ")}`,
-    suggestions: [
+    suggestions: suggestions.length > 0 ? suggestions : [
       {
         id: crypto.randomUUID(),
         original: request.text,
@@ -95,6 +98,116 @@ function localFallback(request: AiTaskRequest, errors: string[]): AiTaskResponse
     ],
     tone: request.taskType === "tone_analysis" ? scoreTone(request.text) : undefined
   };
+}
+
+function buildLocalSuggestions(text: string, taskType: AiTaskRequest["taskType"]): AiTaskResponse["suggestions"] {
+  const rules: Array<{
+    pattern: RegExp;
+    replacement: string;
+    category: "grammar" | "tone" | "clarity" | "hinglish" | "rewrite";
+    explanation: string;
+  }> = [
+    {
+      pattern: /\bI am having one doubt\b/gi,
+      replacement: "I have a question",
+      category: "clarity",
+      explanation: "This sounds more natural and professional."
+    },
+    {
+      pattern: /\bdidn't got\b/gi,
+      replacement: "didn't get",
+      category: "grammar",
+      explanation: "Use the base verb after 'did'."
+    },
+    {
+      pattern: /\brevert back\b/gi,
+      replacement: "respond",
+      category: "clarity",
+      explanation: "'Revert back' is redundant. 'Respond' is clearer."
+    },
+    {
+      pattern: /\bdo the needful\b/gi,
+      replacement: "take the required action",
+      category: "clarity",
+      explanation: "A specific action request is clearer."
+    },
+    {
+      pattern: /\bprepone\b/gi,
+      replacement: "move earlier",
+      category: "clarity",
+      explanation: "Use 'move earlier' for broader professional clarity."
+    },
+    {
+      pattern: /\bSend me this ASAP\b/gi,
+      replacement: "Could you please send this at the earliest?",
+      category: "tone",
+      explanation: "This keeps urgency while sounding more polite."
+    }
+  ];
+
+  if (taskType === "hinglish_transform" || /\b(kal|bhai|ye|hai|kar|karna|thoda|PPT)\b/i.test(text)) {
+    rules.push(
+      {
+        pattern: /\bKal client call hai\b/gi,
+        replacement: "There is a client call tomorrow",
+        category: "hinglish",
+        explanation: "Converts natural Hinglish into professional English."
+      },
+      {
+        pattern: /\bye mail thoda professional bana do\b/gi,
+        replacement: "Please make this email more professional",
+        category: "hinglish",
+        explanation: "Converts Hinglish intent into clear English."
+      },
+      {
+        pattern: /\bbhai please check kar lena\b/gi,
+        replacement: "Please check this when you get a chance",
+        category: "hinglish",
+        explanation: "Preserves the request while making it workplace-friendly."
+      }
+    );
+  }
+
+  const suggestions: AiTaskResponse["suggestions"] = [];
+
+  for (const rule of rules) {
+    const matches = text.match(rule.pattern);
+    if (!matches) continue;
+
+    for (const original of matches) {
+      suggestions.push({
+        id: crypto.randomUUID(),
+        original,
+        replacement: original.replace(rule.pattern, rule.replacement),
+        category: rule.category,
+        confidence: 0.78,
+        explanation: rule.explanation
+      });
+    }
+  }
+
+  if (taskType === "rewrite" && suggestions.length > 0) {
+    return [
+      {
+        id: crypto.randomUUID(),
+        original: text,
+        replacement: applyLocalSuggestions(text, suggestions),
+        category: "rewrite",
+        confidence: 0.72,
+        explanation: "Local rewrite using Scriptly's Indian English and Hinglish rules."
+      },
+      ...suggestions
+    ];
+  }
+
+  return suggestions;
+}
+
+function applyLocalSuggestions(text: string, suggestions: AiTaskResponse["suggestions"]): string {
+  return suggestions.reduce((value, suggestion) => {
+    if (suggestion.original === text) return suggestion.replacement;
+    return value.replace(suggestion.original, suggestion.replacement);
+  }, text);
 }
 
 function heuristicRewrite(text: string, taskType: AiTaskRequest["taskType"]): string {
@@ -111,6 +224,10 @@ function heuristicRewrite(text: string, taskType: AiTaskRequest["taskType"]): st
       .replace(/\bye\b/gi, "this")
       .replace(/\bthoda\b/gi, "a little")
       .replace(/\bbhai\b/gi, "hey");
+  }
+
+  if (taskType === "rewrite" && value === text) {
+    value = text.replace(/\basap\b/gi, "at the earliest");
   }
 
   return value;
