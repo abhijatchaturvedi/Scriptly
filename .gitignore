@@ -1,7 +1,9 @@
 node_modules/
 dist/
+!extension/dist/
+!extension/dist/**
 __pycache__/
 .pytest_cache/
 .env
 .env.*
-
+!backend/.env.example

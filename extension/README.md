@@ -2,14 +2,24 @@
 
 Manifest V3 browser extension for Chrome, Edge, Brave, and Chromium browsers.
 
-## Run Locally
+## Use Locally
+
+The built extension files are included in `dist`, so normal users do not need to run `npm install` or build anything.
+
+1. Open Chrome, Edge, Brave, or another Chromium browser.
+2. Go to `chrome://extensions`.
+3. Enable `Developer mode`.
+4. Click `Load unpacked`.
+5. Select the `Scriptly/extension` folder.
+
+## Developer Build
+
+Only run this if you are changing source files:
 
 ```bash
 npm install
 npm run build
 ```
-
-Then load the `extension` directory as an unpacked extension in Chrome. The manifest points to built assets under `dist`.
 
 ## Implemented Surfaces
 
@@ -26,4 +36,3 @@ Then load the `extension` directory as an unpacked extension in Chrome. The mani
 ## Keyboard
 
 Use `Ctrl+Shift+S` while focused in an editor to run a professional rewrite.
-

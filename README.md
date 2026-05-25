@@ -73,21 +73,11 @@ Or download it as a ZIP from GitHub:
 1. Click `Code`.
 2. Click `Download ZIP`.
 3. Extract the ZIP.
-4. Open the extracted `Scriptly` folder in a terminal.
+4. Keep the extracted `Scriptly` folder somewhere permanent.
 
-### 2. Install Dependencies
+No `npm install` or build step is required for normal use. The repository includes the prebuilt extension files under `extension/dist`.
 
-```bash
-npm --prefix extension install
-```
-
-### 3. Build the Extension
-
-```bash
-npm --prefix extension run build
-```
-
-### 4. Load as an Unpacked Extension
+### 2. Load as an Unpacked Extension
 
 1. Open Chrome, Edge, Brave, or another Chromium browser.
 2. Go to `chrome://extensions`.
@@ -96,7 +86,7 @@ npm --prefix extension run build
 5. Select the `Scriptly/extension` folder.
 6. Pin Scriptly from the browser extensions menu.
 
-### 5. Add Your AI Provider Key
+### 3. Add Your AI Provider Key
 
 1. Click the Scriptly extension icon.
 2. Choose a provider such as OpenAI, Anthropic, Gemini, Groq, OpenRouter, DeepSeek, Together AI, Ollama-compatible, or a custom OpenAI-compatible endpoint.
@@ -107,7 +97,7 @@ npm --prefix extension run build
 
 Your API key is stored locally in the browser using encrypted extension storage.
 
-### 6. Use Scriptly
+### 4. Use Scriptly
 
 - Open Gmail, LinkedIn, WhatsApp Web, Slack, Notion, Twitter/X, ChatGPT, or any page with an editable text field.
 - Click inside a text box.
@@ -123,6 +113,15 @@ The extension works without the backend when you add provider keys in the extens
 cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
+
+### Developer Setup
+
+You only need these commands if you want to modify the extension source code:
+
+```bash
+npm --prefix extension install
+npm --prefix extension run build
 ```
 
 ## Repository
