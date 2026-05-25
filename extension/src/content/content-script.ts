@@ -4,8 +4,12 @@ const EDITOR_SELECTOR = [
   "textarea",
   "input[type='text']",
   "input[type='search']",
+  "body[contenteditable='true']",
   "[contenteditable='true']",
-  "[role='textbox']"
+  "[role='textbox']",
+  "[g_editable='true']",
+  "[aria-label='Message Body']",
+  ".Am.Al.editable"
 ].join(",");
 
 let activeEditor: HTMLElement | null = null;
@@ -15,17 +19,28 @@ let scanTimers = new WeakMap<HTMLElement, number>();
 let activeSuggestions = new WeakMap<HTMLElement, Suggestion[]>();
 
 injectStyles();
+scanExistingEditors();
 
 document.addEventListener("focusin", (event) => {
-  const target = event.target;
-  if (!(target instanceof HTMLElement) || !target.matches(EDITOR_SELECTOR)) {
+  const editor = getEditorFromEvent(event);
+  if (!editor) {
     return;
   }
 
-  activeEditor = target;
-  attachEditorSession(target);
-  showToolbar(target);
-  scheduleScan(target, 100);
+  activeEditor = editor;
+  attachEditorSession(editor);
+  showToolbar(editor);
+  scheduleScan(editor, 100);
+});
+
+document.addEventListener("click", (event) => {
+  const editor = getEditorFromEvent(event);
+  if (!editor) return;
+
+  activeEditor = editor;
+  attachEditorSession(editor);
+  showToolbar(editor);
+  scheduleScan(editor, 100);
 });
 
 document.addEventListener("selectionchange", () => {
@@ -50,6 +65,19 @@ function attachEditorSession(editor: HTMLElement): void {
 
     event.preventDefault();
     await runTask(editor, "rewrite", "polite_indian_corporate");
+  });
+}
+
+function getEditorFromEvent(event: Event): HTMLElement | null {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) return null;
+  if (target.matches(EDITOR_SELECTOR)) return target;
+  return target.closest(EDITOR_SELECTOR);
+}
+
+function scanExistingEditors(): void {
+  document.querySelectorAll<HTMLElement>(EDITOR_SELECTOR).forEach((editor) => {
+    attachEditorSession(editor);
   });
 }
 

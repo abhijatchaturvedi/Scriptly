@@ -142,6 +142,30 @@ function buildLocalSuggestions(text: string, taskType: AiTaskRequest["taskType"]
       replacement: "Could you please send this at the earliest?",
       category: "tone",
       explanation: "This keeps urgency while sounding more polite."
+    },
+    {
+      pattern: /\bi need leave for two days\b/gi,
+      replacement: "I need to take leave for two days",
+      category: "grammar",
+      explanation: "Adds the missing infinitive phrase and capitalizes the sentence naturally."
+    },
+    {
+      pattern: /\bi need leave\b/gi,
+      replacement: "I need to take leave",
+      category: "grammar",
+      explanation: "Use 'need to take leave' for natural professional English."
+    },
+    {
+      pattern: /\bdear sir,\s*i need to take leave for two days\b/gi,
+      replacement: "Dear Sir,\nI need to take leave for two days.",
+      category: "rewrite",
+      explanation: "Capitalizes the greeting and turns the request into a complete sentence."
+    },
+    {
+      pattern: /\bdear sir,\s*i need leave for two days\b/gi,
+      replacement: "Dear Sir,\nI need to take leave for two days.",
+      category: "rewrite",
+      explanation: "Makes the leave request grammatically correct and professional."
     }
   ];
 
@@ -187,11 +211,12 @@ function buildLocalSuggestions(text: string, taskType: AiTaskRequest["taskType"]
   }
 
   if (taskType === "rewrite" && suggestions.length > 0) {
+    const polished = polishLocalRewrite(applyLocalSuggestions(text, suggestions));
     return [
       {
         id: crypto.randomUUID(),
         original: text,
-        replacement: applyLocalSuggestions(text, suggestions),
+        replacement: polished,
         category: "rewrite",
         confidence: 0.72,
         explanation: "Local rewrite using Scriptly's Indian English and Hinglish rules."
@@ -227,10 +252,33 @@ function heuristicRewrite(text: string, taskType: AiTaskRequest["taskType"]): st
   }
 
   if (taskType === "rewrite" && value === text) {
-    value = text.replace(/\basap\b/gi, "at the earliest");
+    value = polishLocalRewrite(text.replace(/\basap\b/gi, "at the earliest"));
   }
 
   return value;
+}
+
+function polishLocalRewrite(text: string): string {
+  const lines = text
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  const polished = lines.map((line) => {
+    let value = line
+      .replace(/^dear sir,?$/i, "Dear Sir,")
+      .replace(/^dear madam,?$/i, "Dear Madam,")
+      .replace(/^i\b/, "I")
+      .replace(/\bi need leave\b/gi, "I need to take leave");
+
+    if (!/[,.!?]$/.test(value) && !value.endsWith(",")) {
+      value += ".";
+    }
+
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  });
+
+  return polished.join("\n");
 }
 
 function detectLanguage(text: string): string {

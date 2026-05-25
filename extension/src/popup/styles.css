@@ -1,8 +1,9 @@
 .popup {
-  width: 380px;
-  max-height: 580px;
+  width: 420px;
+  max-height: 620px;
   overflow: auto;
-  padding: 14px;
+  padding: 16px;
+  background: #f8fafc;
   color: #111827;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
@@ -22,11 +23,12 @@ header,
 
 h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
+  letter-spacing: 0;
 }
 
 h2 {
-  margin: 18px 0 8px;
+  margin: 18px 0 10px;
   font-size: 13px;
   color: #475569;
   text-transform: uppercase;
@@ -43,15 +45,26 @@ input {
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #cbd5e1;
-  border-radius: 7px;
-  padding: 7px 8px;
+  border-radius: 8px;
+  padding: 9px 10px;
+  background: #ffffff;
   font: inherit;
+}
+
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #475569 50%),
+    linear-gradient(135deg, #475569 50%, transparent 50%);
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 30px;
 }
 
 button {
   border: 0;
-  border-radius: 7px;
-  padding: 7px 9px;
+  border-radius: 8px;
+  padding: 9px 11px;
   background: #111827;
   color: white;
   cursor: pointer;
@@ -75,17 +88,74 @@ button {
 
 .provider {
   display: grid;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.provider-head {
+  align-items: flex-start;
+}
+
+.provider-head > div {
+  display: grid;
+  gap: 3px;
+}
+
+.provider-head strong {
+  font-size: 14px;
+}
+
+.provider-head span {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.model-picker {
+  position: relative;
+  display: grid;
   gap: 8px;
-  padding: 10px 0;
-  border-top: 1px solid #e2e8f0;
+}
+
+.model-chip {
+  position: absolute;
+  top: 25px;
+  right: 34px;
+  max-width: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 3px 7px;
+  background: #ccfbf1;
+  color: #0f766e;
+  font-size: 10px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.custom-model {
+  padding: 9px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
 }
 
 .row input {
   flex: 1;
 }
 
+.row button {
+  flex: 0 0 auto;
+}
+
 .status {
   min-height: 18px;
   color: #334155;
   font-size: 12px;
+  margin: 10px 0 0;
 }
